@@ -5,9 +5,9 @@ account: goesontangents
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6651725
-bundleId: 6104323
+bundleId: 6104410
 url: https://goesontangents.shinyapps.io/statrollr/
-when: 1658006867.11105
-lastSyncTime: 1658006867.11105
+when: 1658011573.19668
+lastSyncTime: 1658011573.19668
 asMultiple: FALSE
 asStatic: FALSE

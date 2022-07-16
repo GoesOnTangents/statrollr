@@ -144,11 +144,14 @@ ui <- fluidPage(
     fluidRow(
         column(12,
                h1("3d6 but balanced"),
-               column(4,
+               column(2,
                   sliderInput("pbv_target", label = "Point Buy Value Target",
                               min = 25, max = 35, value = 27, step = 1
                               ),
-                  sliderInput("high_stat_min", label = "Minimum value for highest stat",
+                  #sliderInput("pbv_flex", label = "Point Buy Target Flexibility",
+                  #            min = 1, max = 10, value = 1, step = 1
+                  #            ),
+                  sliderInput("high_stat_min", label = "Minimum value for main stat",
                               min = 12, max = 15, value = 15, step = 1
                               ),
                   selectInput("distribution", label = "Distribution Tendency",
@@ -158,26 +161,29 @@ ui <- fluidPage(
                               selected = c(distributions$RNORM)
                               ),
                   actionButton("start", "Roll!")
-                      ),
-               column(8,
+                  ),
+               column(6,
                       p("This is an attribute generator that uses probability distributions to generate attributes. 
                         It limits disruptive stat arrays by forcing attributes to match 5th edition's point-buy value.
-                         "),
-                      h4("Versatile"),
+                        There are three distributions you can use to generate your attribute scores, which will slightly
+                        influence spread and skew of your attributes, but in theory any distribution could end up in the same
+                        stats. All three distributions have a good chance to end up being close to the standard array (15,14,13,12,10,8).
+                        "),
+                      h4("Versatile (Most likely: 15, 13, 12, 12, 11, 10)"),
                       p("Uses a binomial distribution. On average, it will end up with the highest total values. 
                          However, it rarely generates attributes above 15. It is a good distribution to choose if you don't like surprises,
                          want to multiclass, or if \"MAD\" means a lot to you.
                          If you ever see an 18 here, buy a lottery ticket."),
-                      h4("Normal"),
+                      h4("Normal (Most likely: 15,14,13,12,11,8"),
                       p("Uses a normal distribution. On average, it mimicks rolling dice for stats the best.
-                         Regarding expected maximum and average stats, it's between \"Versatilie\" and \"Focussed\""),
-                      h4("Focused"),
+                         Regarding expected maximum and average stats, it's between \"Versatile\" and \"Focused\"."),
+                      h4("Focused (Most likely: 15, 15, 11, 11, 10, 9"),
                       p("Uses a uniform distribution, which means that before the algorithm converges on the chosen
                          point buy value, anything goes. After, you may end up with a highly focussed array, with multiple high values.
                          However, the average values generated tend to be the lowest of the three distributions. 
                          ")
-                      )
-               
+                      ),
+               column(4)
                )
     ),
     fluidRow(
@@ -222,7 +228,7 @@ server <- function(input, output) {
             calculated_values$final_attributes
         })})
         
-        delay(7000, { output$log <- renderPrint({
+        delay(6000, { output$log <- renderPrint({
             calculated_values
         })})
     })
